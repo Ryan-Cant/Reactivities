@@ -6,7 +6,7 @@ using Domain;
 using AutoMapper;
 
 namespace Application.Activities.Commands;
-    
+
 public class EditActivity
 {
     public class Command : IRequest
@@ -18,11 +18,11 @@ public class EditActivity
         public async Task Handle(Command request, CancellationToken cancellationToken)
         {
             var activity = await context.Activities.FindAsync(request.Activity.Id, cancellationToken) ?? throw new Exception("Activity not found");
-            
+
             mapper.Map(request.Activity, activity);
 
             await context.SaveChangesAsync(cancellationToken);
-            
+
         }
     }
 }
