@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import agent from '../api/agent';
 
-export const useActivities = () => {
+export const useActivities = (id?: string) => {
     const queryClient = useQueryClient();
     const { data: activities, isPending, isError, error, refetch } = useQuery({
         queryKey: ['activities'],
@@ -11,10 +11,20 @@ export const useActivities = () => {
         },
     });
 
+    const { data: activity, isLoading: isLoadingActivity } = useQuery({
+        queryKey: ['activities', id],
+        queryFn: async () => {
+            const response = await agent.get<Activity>(`/activities/${id}`);
+            return response.data;
+        },
+        enabled: !!id
+    });
+
     const createActivity = useMutation({
         mutationKey: ['activities', 'create'],
         mutationFn: async (activity: Activity) => {
-            await agent.post<string>('/activities', activity);
+            const response = await agent.post('/activities', activity);
+            return response.data;
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ['activities'] });
@@ -24,7 +34,8 @@ export const useActivities = () => {
     const updateActivity = useMutation({
         mutationKey: ['activities', 'update'],
         mutationFn: async (activity: Activity) => {
-            await agent.put('/activities', activity);
+            const response = await agent.put('/activities', activity);
+            return response.data;
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ['activities'] });
@@ -35,7 +46,8 @@ export const useActivities = () => {
     const deleteActivity = useMutation({
         mutationKey: ['activities', 'delete'],
         mutationFn: async (id: string) => {
-            await agent.delete(`/activities/${id}`);
+            const response = await agent.delete(`/activities/${id}`);
+            return response.data;
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ['activities'] });
@@ -52,6 +64,8 @@ export const useActivities = () => {
         refetch,
         createActivity,
         updateActivity,
-        deleteActivity
+        deleteActivity,
+        activity,
+        isLoadingActivity
     };
 };
