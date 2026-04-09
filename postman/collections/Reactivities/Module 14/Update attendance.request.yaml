@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{url}}/api/activities/5a62197b-be97-49f6-acb0-db1135afbe48/attend"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: ""
+scripts:
+  - type: afterResponse
+    code: |-
+      var data = pm.response.json();
+
+      // response to be 200
+      pm.test("response is 200", function() {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 6000

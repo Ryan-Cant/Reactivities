@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{url}}/api/profiles/bob-id/follow"
+method: POST
+body:
+  type: text
+  content: ""
+order: 10000

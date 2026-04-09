@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{url}}/api/activities/5a62197b-be97-49f6-acb0-db1135afbe48"
+method: DELETE
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+body:
+  type: text
+  content: ""
+order: 10000

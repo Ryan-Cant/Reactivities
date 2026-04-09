@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{url}}/api/activities?cursor=2025-03-27T00:03:16.594619Z"
+method: GET
+queryParams:
+  cursor: 2025-03-27T00:03:16.594619Z
+scripts:
+  - type: afterResponse
+    code: |-
+      var data = pm.response.json();
+
+      // response to be 200
+      pm.test("response is 200", function() {
+          pm.response.to.have.status(200)
+      });
+    language: text/javascript
+order: 3000

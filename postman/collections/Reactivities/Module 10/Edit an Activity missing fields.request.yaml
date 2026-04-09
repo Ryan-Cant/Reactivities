@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{url}}/api/activities/e80c88e7-3823-4bb7-8ecf-a5249e7091d4"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"title": ""
+    }
+order: 3000

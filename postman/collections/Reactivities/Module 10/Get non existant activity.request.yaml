@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get non existant activity
+url: "{{url}}/api/activities/d51e33de-105b-4549-96d9-8ba2c7b05a30"
+method: GET
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: ""
+order: 1000

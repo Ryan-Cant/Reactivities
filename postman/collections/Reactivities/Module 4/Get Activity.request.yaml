@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/api/activities/aabbf80e-2dad-40c0-be82-1cdbf369ef2c"
+method: GET
+order: 2000

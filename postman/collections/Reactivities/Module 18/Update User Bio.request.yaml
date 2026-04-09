@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{url}}/api/profiles"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"displayName": "Bob",
+    	"bio": "Hello from Bob!"
+    }
+order: 3000

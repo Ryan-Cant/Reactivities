@@ -1,0 +1,30 @@
+$kind: http-request
+url: "{{url}}/api/activities/2d1aa07f-fe7b-4e65-b96d-16b30b8b10fd"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: >-
+    {
+        "id": "5ad4984f-03d0-459b-a5f0-ad2e7c38b13e",
+        "title": "Test activity updated again",
+        "date": "2025-04-03T03:10:54.11",
+        "description": "Libero sunt cumque est odit ipsa dolorem aut facilis. Est fuga aut omnis. Sunt sit quidem et omnis. Voluptatem voluptas vero updated.",
+        "category": "Culture",
+        "isCancelled": false,
+        "city": "Brayanbury",
+        "venue": "Sylvan Fall",
+        "latitude": 51.496510900000004,
+        "longitude": -0.17600190725447445
+    }
+scripts:
+  - type: beforeRequest
+    code: "var moment = require(\"moment\");\r
+
+      \r
+
+      pm.environment.set('activityDate', moment().add(14,
+      'days').toISOString());"
+    language: text/javascript
+order: 4000

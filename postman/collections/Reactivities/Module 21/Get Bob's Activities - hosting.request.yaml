@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{url}}/api/profiles/bob-id/activities?filter=hosting"
+method: GET
+queryParams:
+  filter: hosting
+order: 11000

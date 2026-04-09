@@ -1,0 +1,35 @@
+$kind: http-request
+url: "{{url}}/api/activities"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"title": "Test event with bob as host",
+    	"description": "Description of the test event",
+    	"category":"drinks",
+    	"date": "{{activityDate}}",
+    	"city": "London",
+    	"venue": "London venue",
+        "latitude": 51.5074,
+        "longitude": -0.1278
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      // response to be 200
+      pm.test("response is ok", function() {
+          pm.response.to.have.status(200)
+      });
+    language: text/javascript
+  - type: beforeRequest
+    code: "var moment = require(\"moment\");\r
+
+      \r
+
+      pm.environment.set('activityDate', moment().add(14,
+      'days').toISOString());"
+    language: text/javascript
+order: 3000

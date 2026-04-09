@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{url}}/api/activities"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("response is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      var data = pm.response.json();
+      pm.test("non-empty list", function () {
+          pm.expect(data).to.be.an("array");
+          pm.expect(data.length).to.be.above(0);
+      });
+      if (Array.isArray(data) && data.length > 0 && data[0].id) {
+          pm.collectionVariables.set("activityId", data[0].id);
+      }
+    language: text/javascript
+order: 2000

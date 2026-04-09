@@ -1,0 +1,5 @@
+$kind: collection
+variables:
+  url: https://localhost:5005
+  activityId: ""
+  token: ""

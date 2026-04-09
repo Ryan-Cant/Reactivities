@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{url}}/api/profiles/bob-id/activities?filter=future"
+method: GET
+queryParams:
+  filter: future
+order: 10000

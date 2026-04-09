@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{url}}/api/activities"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"title": "{{$randomCatchPhrase}}",
+    	"description": "{{$randomLoremParagraph}}",
+    	"category": "Culture",
+    	"date": "{{activityDate}}",
+    	"city": "{{$randomCity}}",
+    	"venue": "{{$randomStreetName}}",
+        "latitude": 51.496510900000004,
+        "longitude": -0.17600190725447445
+    }
+scripts:
+  - type: beforeRequest
+    code: "var moment = require(\"moment\");\r
+
+      \r
+
+      pm.environment.set('activityDate', moment().add(100,
+      'days').toISOString());"
+    language: text/javascript
+order: 3000

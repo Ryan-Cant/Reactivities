@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{url}}/api/profiles/6819da2a-f1dd-46af-add9-3f6626504b2a/setMain"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: "{}"
+order: 7000

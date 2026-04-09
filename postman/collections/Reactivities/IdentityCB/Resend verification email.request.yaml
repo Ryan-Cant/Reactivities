@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{url}}/api/account/resendConfirmEmail?email=jane@test.com"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  email: jane@test.com
+order: 4000

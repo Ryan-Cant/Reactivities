@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{url}}/api/profiles/bob-id/follow-list?predicate=followers"
+method: GET
+queryParams:
+  predicate: followers
+order: 7000

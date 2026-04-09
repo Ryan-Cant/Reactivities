@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/api/profiles/f3d8d19c-27cd-4a28-b890-4d888abb8e28/photos"
+method: GET
+order: 5000

@@ -1,0 +1,26 @@
+import { Divider, Paper } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { useLocation } from "react-router";
+
+export default function ServerError() {
+  const {state} = useLocation();
+
+  return (
+    <Paper>
+        {state.error ? (
+            <>
+                <Typography gutterBottom variant="h3"sx={{px:4, pt:2}} color="secondary"
+                >{state.error.message || 'There was an error'}
+                </Typography>
+                <Divider />
+                <Typography variant="body1" sx={{p:4}}>
+                {state.error?.details || "Internal server error"}
+                </Typography>
+                
+            </>
+        ) : (
+            <Typography variant="h5">Server Error</Typography>
+        )}
+    </Paper>
+  );
+}

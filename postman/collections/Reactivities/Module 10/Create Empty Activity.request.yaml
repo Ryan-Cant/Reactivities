@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{url}}/api/activities"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        
+    }
+order: 2000

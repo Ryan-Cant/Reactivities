@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/api/profiles/bob-id"
+method: GET
+order: 3000

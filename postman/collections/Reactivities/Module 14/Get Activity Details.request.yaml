@@ -1,0 +1,33 @@
+$kind: http-request
+url: "{{url}}/api/activities/{{activityId}}"
+method: GET
+scripts:
+  - type: prerequest
+    code: |-
+      var id = pm.collectionVariables.get("activityId");
+      if (!id) {
+          throw new Error("Run \"Get Activities\" in this folder first (sets activityId).");
+      }
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      var data = pm.response.json();
+
+      pm.test("response is 200", function() {
+          pm.response.to.have.status(200)
+      });
+
+      pm.test("has expected activity fields", function() {
+          pm.expect(data).to.have.property('id');
+          pm.expect(data).to.have.property('title');
+          pm.expect(data).to.have.property('description');
+          pm.expect(data).to.have.property('date');
+          pm.expect(data).to.have.property('city');
+          pm.expect(data).to.have.property('venue');
+          pm.expect(data).to.have.property('category');
+          pm.expect(data).to.have.property('isCancelled');
+          pm.expect(data).to.have.property('latitude');
+          pm.expect(data).to.have.property('longitude');
+      });
+    language: text/javascript
+order: 5000

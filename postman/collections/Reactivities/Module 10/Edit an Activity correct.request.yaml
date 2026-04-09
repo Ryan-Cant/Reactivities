@@ -1,0 +1,26 @@
+$kind: http-request
+url: "{{url}}/api/activities/2"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"title": "Test Create Activity updated",
+    	"description": "Description of the test event",
+    	"category": "Culture",
+    	"date": "{{activityDate}}",
+    	"city": "London",
+    	"venue": "Tower of London"
+    }
+scripts:
+  - type: beforeRequest
+    code: "var moment = require(\"moment\");\r
+
+      \r
+
+      pm.environment.set('activityDate', moment().add(14,
+      'days').toISOString());"
+    language: text/javascript
+order: 4000

@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{url}}/api/account/logout"
+method: POST
+headers:
+  Content-Type: application/json
+order: 10000
