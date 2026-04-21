@@ -45,10 +45,10 @@ export default function ActivityDetailInfo({ activity }: Props) {
                     </Button>
                 </Grid>
             </Grid>
-            {mapOpen && 
+            {mapOpen && (
             <Box sx={{ height: 400, zIndex: 1000, display: 'block' }}>
                 <MapComponent position={[activity.latitude, activity.longitude]} venue={activity.venue} />
-                </Box>}
+                </Box>)}
         </Paper>
     )
 }
