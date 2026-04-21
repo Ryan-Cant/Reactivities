@@ -1,12 +1,10 @@
-import {  Grid, Box, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useParams } from "react-router";
 import { useActivities } from "../../../../lib/hooks/useActivities";
 import ActivityDetailHeader from "./ActivityDetailHeader";
 import ActivityDetailInfo from "./ActivityDetailInfo";
 import ActivityDetailChat from "./ActivityDetailChat";
 import ActivityDetailsSidebar from "./ActivityDetailsSidebar";
-import MapComponent from "../../../../app/shared/components/MapComponent";
-
 
 export default function ActivityDetailPage() {
 
@@ -22,12 +20,6 @@ export default function ActivityDetailPage() {
       <Grid size={8}>
         <ActivityDetailHeader activity={activity} />
         <ActivityDetailInfo activity={activity} />
-        <Box sx={{ mb: 2, height: 400 }}>
-          <MapComponent 
-            position={[activity.latitude, activity.longitude]}
-            venue={activity.venue}
-          />
-        </Box>
         <ActivityDetailChat />
 
       </Grid>
