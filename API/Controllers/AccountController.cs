@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-public class AccountController(SignInManager<User> signInManager) :BaseApiController
+public class AccountController(SignInManager<User> signInManager) : BaseApiController
 {
     [AllowAnonymous]
     [HttpPost("register")]
@@ -18,35 +18,45 @@ public class AccountController(SignInManager<User> signInManager) :BaseApiContro
             UserName = registerDto.Email,
             Email = registerDto.Email,
             DisplayName = registerDto.DisplayName
-            
-            
         };
+
         var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
+
         if (result.Succeeded) return Ok();
 
         foreach (var error in result.Errors)
         {
             ModelState.AddModelError(error.Code, error.Description);
         }
+
         return ValidationProblem();
     }
+
     [AllowAnonymous]
     [HttpGet("user-info")]
     public async Task<ActionResult> GetUserInfo()
     {
-        if(User.Identity?.IsAuthenticated==false) return NoContent();
-        
+        if (User.Identity?.IsAuthenticated == false) return NoContent();
+
         var user = await signInManager.UserManager.GetUserAsync(User);
+
         if (user == null) return Unauthorized();
 
-        
-        return Ok(new { user.DisplayName, user.Email, user.ImageUrl, user.Id });
+        return Ok(new
+        {
+            user.DisplayName,
+            user.Email,
+            user.Id,
+            user.ImageUrl
+        });
     }
 
+    [Authorize]
     [HttpPost("logout")]
     public async Task<ActionResult> Logout()
     {
         await signInManager.SignOutAsync();
+
         return NoContent();
     }
 }

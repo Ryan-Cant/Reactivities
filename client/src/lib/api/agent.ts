@@ -1,14 +1,17 @@
-import axios from "axios";
-import { store } from "../stores/store";
-import { toast } from "react-toastify";
-import { router } from "../../app/router/Routes";
+import axios from 'axios';
+import { store } from '../stores/store';
+import { toast } from 'react-toastify';
+import { router } from '../../app/router/Routes';
+
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
         setTimeout(resolve, delay);
     });
 }
+
 const agent = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: true
 });
 
 agent.interceptors.request.use(config => {
@@ -23,41 +26,39 @@ agent.interceptors.response.use(
         return response;
     },
     async error => {
-
         await sleep(1000);
-        store.uiStore.isIdle();
-
-        const {  status, data } = error.response;
+        store.uiStore.isIdle(); // Ensure the busy state is reset on error
+        const {data, status} = error.response;
         switch (status) {
             case 400:
-                if(data.errors)
-                {
-                    const modelStateErrors = [];
-                    for (const key in data.errors) {
-                        if (data.errors[key]) {
-                            modelStateErrors.push(data.errors[key]);
-                        }
+                if (data.errors) {
+                const modalStateErrors = [];
+                for (const key in data.errors) {
+                    if (data.errors[key]) {
+                        modalStateErrors.push(data.errors[key])
                     }
-                    throw modelStateErrors.flat();
-                }else{
-                    toast.error(data);
                 }
+                throw modalStateErrors.flat();
+            } else {
+                toast.error(data);
+            }
                 break;
             case 401:
-                toast.error('Unauthorised');
+                toast.error('unauthorised');
+                break;
+            case 403:
+                toast.error('forbidden');
                 break;
             case 404:
-                router.navigate('/not-found',);
+                await router.navigate('/not-found');
                 break;
             case 500:
-                router.navigate('/server-error', { state: { error: data } });
-                break;
-            default:
-                toast.error('Something went wrong');
+                router.navigate('/server-error', {state: {error: data}})
                 break;
         }
+
         return Promise.reject(error);
     }
-)
+);
 
 export default agent;

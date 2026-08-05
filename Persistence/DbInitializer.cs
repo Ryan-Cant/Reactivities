@@ -12,30 +12,20 @@ public class DbInitializer
         {
             var users = new List<User>
                 {
-                    new() {
-                        DisplayName = "Bob",
-                        UserName = "bob@test.com",
-                        Email = "bob@test.com"},
-                        new() {
-                        DisplayName = "Tom",
-                        UserName = "tom@test.com",
-                        Email = "tom@test.com"},
-                        new() {
-                        DisplayName = "Alice",
-                        UserName = "alice@test.com",
-                        Email = "alice@test.com"}
-                        };
-                        foreach (var user in users)
-                        {
-                            await userManager.CreateAsync(user, "Pa$$w0rd");
-                        }
+                    new() {DisplayName = "Bob", UserName = "bob@test.com", Email = "bob@test.com"},
+                    new() {DisplayName = "Tom", UserName = "tom@test.com", Email = "tom@test.com"},
+                    new() {DisplayName = "Jane", UserName = "jane@test.com", Email = "jane@test.com"},
+                };
+
+            foreach (var user in users)
+            {
+                await userManager.CreateAsync(user, "Pa$$w0rd");
+            }
         }
 
+        if (context.Activities.Any()) return;
 
-
-            if (context.Activities.Any()) return;
-
-            var activities = new List<Activity>
+        var activities = new List<Activity>
         {
             new() {
                 Title = "Past Activity 1",
@@ -144,7 +134,9 @@ public class DbInitializer
                 Longitude = -0.781404
             }
         };
-            context.Activities.AddRange(activities);
-            await context.SaveChangesAsync();
-        }
+
+        context.Activities.AddRange(activities);
+
+        await context.SaveChangesAsync();
     }
+}
